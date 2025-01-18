@@ -26,6 +26,7 @@ export const Fade = ({
   innerProps: originalProps,
   ...props
 }: Props) => {
+  const nodeRef = React.useRef(null);
   const enter = 300;
   const exit = 500;
   const fadeStyle = {
@@ -48,8 +49,9 @@ export const Fade = ({
       key="fade"
       in={inProp}
       timeout={{ enter, exit }}
+      nodeRef={nodeRef}
     >
-      {status => {
+      {(status) => {
         const innerProps = {
           ...originalProps,
           style: {
@@ -60,7 +62,7 @@ export const Fade = ({
 
         if (status === 'exited') return null;
 
-        return <Tag innerProps={innerProps} {...props} />;
+        return <Tag ref={nodeRef} innerProps={innerProps} {...props} />;
       }}
     </Transition>
   );
@@ -78,6 +80,7 @@ export const SlideUp = ({
   innerProps: originalProps,
   ...props
 }: Props) => {
+  const nodeRef = React.useRef(null);
   const enter = 300;
   const exit = 500;
   const restingTransform = 'translate3d(0, 0, 0)';
@@ -110,8 +113,9 @@ export const SlideUp = ({
       onExited={onExited}
       timeout={{ enter, exit }}
       unmountOnExit
+      nodeRef={nodeRef}
     >
-      {status => {
+      {(status) => {
         if (status === 'exited') return null;
 
         const innerProps = {
@@ -122,7 +126,7 @@ export const SlideUp = ({
           },
         };
 
-        return <Tag innerProps={innerProps} {...props} />;
+        return <Tag ref={nodeRef} innerProps={innerProps} {...props} />;
       }}
     </Transition>
   );

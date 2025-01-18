@@ -871,6 +871,7 @@ var Fade = function Fade(_ref) {
       originalProps = _ref.innerProps,
       props = objectWithoutProperties(_ref, ['component', 'onEntered', 'onExited', 'in', 'innerProps']);
 
+  var nodeRef = React.useRef(null);
   var enter = 300;
   var exit = 500;
   var fadeStyle = {
@@ -893,7 +894,8 @@ var Fade = function Fade(_ref) {
       onExited: onExited,
       key: 'fade',
       'in': inProp,
-      timeout: { enter: enter, exit: exit }
+      timeout: { enter: enter, exit: exit },
+      nodeRef: nodeRef
     },
     function (status) {
       var innerProps = _extends({}, originalProps, {
@@ -902,7 +904,7 @@ var Fade = function Fade(_ref) {
 
       if (status === 'exited') return null;
 
-      return React.createElement(Tag, _extends({ innerProps: innerProps }, props));
+      return React.createElement(Tag, _extends({ ref: nodeRef, innerProps: innerProps }, props));
     }
   );
 };
@@ -915,6 +917,7 @@ var SlideUp = function SlideUp(_ref2) {
       originalProps = _ref2.innerProps,
       props = objectWithoutProperties(_ref2, ['component', 'onEntered', 'onExited', 'in', 'innerProps']);
 
+  var nodeRef = React.useRef(null);
   var enter = 300;
   var exit = 500;
   var restingTransform = 'translate3d(0, 0, 0)';
@@ -947,7 +950,8 @@ var SlideUp = function SlideUp(_ref2) {
       onEntered: onEntered,
       onExited: onExited,
       timeout: { enter: enter, exit: exit },
-      unmountOnExit: true
+      unmountOnExit: true,
+      nodeRef: nodeRef
     },
     function (status) {
       if (status === 'exited') return null;
@@ -956,7 +960,7 @@ var SlideUp = function SlideUp(_ref2) {
         style: _extends({}, slideStyle, slideTransition[status])
       });
 
-      return React.createElement(Tag, _extends({ innerProps: innerProps }, props));
+      return React.createElement(Tag, _extends({ ref: nodeRef, innerProps: innerProps }, props));
     }
   );
 };
