@@ -1,7 +1,6 @@
 // @flow
 // @jsx glam
-import React, { Component, type ElementRef } from 'react';
-import { findDOMNode } from 'react-dom';
+import React, { Component, createRef, type ElementRef } from 'react';
 import glam from 'glam';
 import rafScheduler from 'raf-schd';
 import { ViewPager, Frame, Track, View as PageView } from 'react-view-pager';
@@ -89,10 +88,10 @@ class Carousel extends Component<CarouselProps, CarouselState> {
   components: CarouselComponents;
   container: HTMLElement;
   footer: HTMLElement;
-  frame: ElementRef<Frame>;
+  frame: ElementRef<Frame> = createRef();
   header: HTMLElement;
   mounted: boolean = false;
-  track: ElementRef<Track>;
+  track: ElementRef<Track> = createRef();
   timer: number;
 
   static defaultProps = defaultProps;
@@ -156,14 +155,8 @@ class Carousel extends Component<CarouselProps, CarouselState> {
   getFooter = (ref: HTMLElement) => {
     this.footer = ref;
   };
-  getFrame = (ref: Frame) => {
-    this.frame = findDOMNode(ref);
-  };
   getHeader = (ref: HTMLElement) => {
     this.header = ref;
-  };
-  getTrack = (ref: Track) => {
-    this.track = ref;
   };
 
   // ==============================
@@ -204,17 +197,17 @@ class Carousel extends Component<CarouselProps, CarouselState> {
     return views[currentIndex];
   };
   focusViewFrame = () => {
-    if (this.frame && document.activeElement !== this.frame) {
-      this.frame.focus();
+    if (this.frame.current && document.activeElement !== this.frame.current) {
+      this.frame.current.focus();
     }
   };
 
   prev = () => {
-    this.track.prev();
+    this.track.current.prev();
     this.focusViewFrame();
   };
   next = () => {
-    this.track.next();
+    this.track.current.next();
     this.focusViewFrame();
   };
 
@@ -377,7 +370,7 @@ class Carousel extends Component<CarouselProps, CarouselState> {
               currentView={currentIndex}
               className={className('track')}
               onViewChange={this.handleViewChange}
-              ref={this.getTrack}
+              ref={this.track}
             >
               {views &&
                 views.map((data, index) => {

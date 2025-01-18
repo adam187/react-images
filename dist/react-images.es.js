@@ -1,5 +1,4 @@
-import React, { Children, Component, cloneElement } from 'react';
-import { createPortal, findDOMNode } from 'react-dom';
+import React, { Children, Component, cloneElement, createRef } from 'react';
 import glam from 'glam';
 import rafScheduler from 'raf-schd';
 import { Frame, Track, View, ViewPager } from 'react-view-pager';
@@ -7,6 +6,7 @@ import Fullscreen from 'react-full-screen';
 import ScrollLock from 'react-scrolllock';
 import focusStore from 'a11y-focus-store';
 import { Transition, TransitionGroup } from 'react-transition-group';
+import { createPortal } from 'react-dom';
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -1396,7 +1396,7 @@ var Carousel$1 = function (_Component) {
                 currentView: currentIndex,
                 className: className('track'),
                 onViewChange: this.handleViewChange,
-                ref: this.getTrack
+                ref: this.track
               }),
               views && views.map(function (data, index) {
                 return glam(
@@ -1421,7 +1421,9 @@ Carousel$1.defaultProps = defaultProps;
 var _initialiseProps = function _initialiseProps() {
   var _this2 = this;
 
+  this.frame = createRef();
   this.mounted = false;
+  this.track = createRef();
 
   this.cacheComponents = function (comps) {
     _this2.components = defaultCarouselComponents(comps);
@@ -1435,16 +1437,8 @@ var _initialiseProps = function _initialiseProps() {
     _this2.footer = ref;
   };
 
-  this.getFrame = function (ref) {
-    _this2.frame = findDOMNode(ref);
-  };
-
   this.getHeader = function (ref) {
     _this2.header = ref;
-  };
-
-  this.getTrack = function (ref) {
-    _this2.track = ref;
   };
 
   this.hasPreviousView = function () {
@@ -1489,18 +1483,18 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.focusViewFrame = function () {
-    if (_this2.frame && document.activeElement !== _this2.frame) {
-      _this2.frame.focus();
+    if (_this2.frame.current && document.activeElement !== _this2.frame.current) {
+      _this2.frame.current.focus();
     }
   };
 
   this.prev = function () {
-    _this2.track.prev();
+    _this2.track.current.prev();
     _this2.focusViewFrame();
   };
 
   this.next = function () {
-    _this2.track.next();
+    _this2.track.current.next();
     _this2.focusViewFrame();
   };
 

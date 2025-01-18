@@ -1,6 +1,6 @@
 {
   "name": "react-images",
-  "version": "1.0.0-custom-build-2",
+  "version": "1.0.0-custom-build-3",
   "description": "A mobile-friendly, highly customizable, carousel component for displaying media in ReactJS",
   "main": "lib/index.js",
   "jsnext:main": "dist/react-images.es.js",
@@ -65,8 +65,8 @@
     "react-view-pager": "^0.6.0"
   },
   "peerDependencies": {
-    "react": "^15.3.0 || ^16.2.0 || ^17 || ^18",
-    "react-dom": "^15.3.0 || ^16.2.0 || ^17 || ^18"
+    "react": "^15.3.0 || ^16.2.0 || ^17 || ^18 || ^19",
+    "react-dom": "^15.3.0 || ^16.2.0 || ^17 || ^18 || ^19"
   },
   "scripts": {
     "build": "nps build",

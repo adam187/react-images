@@ -1,8 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('react-dom'), require('glam'), require('raf-schd'), require('react-view-pager'), require('react-full-screen'), require('react-scrolllock'), require('a11y-focus-store'), require('react-transition-group')) :
-	typeof define === 'function' && define.amd ? define(['react', 'react-dom', 'glam', 'raf-schd', 'react-view-pager', 'react-full-screen', 'react-scrolllock', 'a11y-focus-store', 'react-transition-group'], factory) :
-	(global.Images = factory(global.React,global.ReactDOM,global.glam,global.rafScheduler,global.PageView,global.Fullscreen,global.ScrollLock,global.focusStore,global.Transition));
-}(this, (function (React,reactDom,glam,rafScheduler,reactViewPager,Fullscreen,ScrollLock,focusStore,reactTransitionGroup) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('glam'), require('raf-schd'), require('react-view-pager'), require('react-full-screen'), require('react-scrolllock'), require('a11y-focus-store'), require('react-transition-group'), require('react-dom')) :
+	typeof define === 'function' && define.amd ? define(['react', 'glam', 'raf-schd', 'react-view-pager', 'react-full-screen', 'react-scrolllock', 'a11y-focus-store', 'react-transition-group', 'react-dom'], factory) :
+	(global.Images = factory(global.React,global.glam,global.rafScheduler,global.PageView,global.Fullscreen,global.ScrollLock,global.focusStore,global.Transition,global.ReactDOM));
+}(this, (function (React,glam,rafScheduler,reactViewPager,Fullscreen,ScrollLock,focusStore,reactTransitionGroup,reactDom) { 'use strict';
 
 var React__default = 'default' in React ? React['default'] : React;
 glam = glam && glam.hasOwnProperty('default') ? glam['default'] : glam;
@@ -1399,7 +1399,7 @@ var Carousel$1 = function (_Component) {
                 currentView: currentIndex,
                 className: className('track'),
                 onViewChange: this.handleViewChange,
-                ref: this.getTrack
+                ref: this.track
               }),
               views && views.map(function (data, index) {
                 return glam(
@@ -1424,7 +1424,9 @@ Carousel$1.defaultProps = defaultProps;
 var _initialiseProps = function _initialiseProps() {
   var _this2 = this;
 
+  this.frame = React.createRef();
   this.mounted = false;
+  this.track = React.createRef();
 
   this.cacheComponents = function (comps) {
     _this2.components = defaultCarouselComponents(comps);
@@ -1438,16 +1440,8 @@ var _initialiseProps = function _initialiseProps() {
     _this2.footer = ref;
   };
 
-  this.getFrame = function (ref) {
-    _this2.frame = reactDom.findDOMNode(ref);
-  };
-
   this.getHeader = function (ref) {
     _this2.header = ref;
-  };
-
-  this.getTrack = function (ref) {
-    _this2.track = ref;
   };
 
   this.hasPreviousView = function () {
@@ -1492,18 +1486,18 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.focusViewFrame = function () {
-    if (_this2.frame && document.activeElement !== _this2.frame) {
-      _this2.frame.focus();
+    if (_this2.frame.current && document.activeElement !== _this2.frame.current) {
+      _this2.frame.current.focus();
     }
   };
 
   this.prev = function () {
-    _this2.track.prev();
+    _this2.track.current.prev();
     _this2.focusViewFrame();
   };
 
   this.next = function () {
-    _this2.track.next();
+    _this2.track.current.next();
     _this2.focusViewFrame();
   };
 
