@@ -680,16 +680,17 @@ var blanketCSS = function blanketCSS(_ref) {
   };
 };
 
-var Blanket = function Blanket(props) {
+var Blanket = React.forwardRef(function (props, ref) {
   var getStyles = props.getStyles,
       innerProps = props.innerProps,
       isFullscreen = props.isFullscreen;
 
   return glam(Div, _extends({
     css: getStyles('blanket', props),
-    className: className('blanket', { isFullscreen: isFullscreen })
+    className: className('blanket', { isFullscreen: isFullscreen }),
+    ref: ref
   }, innerProps));
-};
+});
 
 // ==============================
 // Positioner

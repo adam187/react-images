@@ -26,16 +26,17 @@ export const blanketCSS = ({ isFullscreen }: BlanketState) => ({
   zIndex: 1,
 });
 
-export const Blanket = (props: BlanketProps) => {
+export const Blanket = React.forwardRef((props: BlanketProps, ref) => {
   const { getStyles, innerProps, isFullscreen } = props;
   return (
     <Div
       css={getStyles('blanket', props)}
       className={className('blanket', { isFullscreen })}
+      ref={ref}
       {...innerProps}
     />
   );
-};
+});
 
 // ==============================
 // Positioner
