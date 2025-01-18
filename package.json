@@ -1,6 +1,6 @@
 {
   "name": "react-images",
-  "version": "1.0.0-custom-build-3",
+  "version": "1.0.0-custom-build-4",
   "description": "A mobile-friendly, highly customizable, carousel component for displaying media in ReactJS",
   "main": "lib/index.js",
   "jsnext:main": "dist/react-images.es.js",
@@ -61,7 +61,7 @@
     "raf-schd": "^2.1.0",
     "react-full-screen": "^0.2.4",
     "react-scrolllock": "^1.0.9",
-    "react-transition-group": "^2.2.1",
+    "react-transition-group": "^4.4.5",
     "react-view-pager": "^0.6.0"
   },
   "peerDependencies": {
